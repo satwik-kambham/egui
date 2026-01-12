@@ -613,33 +613,33 @@ impl Focus {
             .entry(id)
             .or_insert(Rect::EVERYTHING);
 
-        if self.give_to_next && !self.had_focus_last_frame(id) {
-            self.focused_widget = Some(FocusWidget::new(id));
-            self.give_to_next = false;
-        } else if self.focused() == Some(id) {
-            if self.focus_direction == FocusDirection::Next {
-                self.focused_widget = None;
-                self.give_to_next = true;
-                self.reset_focus();
-            } else if self.focus_direction == FocusDirection::Previous {
-                self.id_next_frame = self.last_interested; // frame-delay so gained_focus works
-                self.reset_focus();
-            }
-        } else if self.focus_direction == FocusDirection::Next
-            && self.focused_widget.is_none()
-            && !self.give_to_next
-        {
-            // nothing has focus and the user pressed tab - give focus to the first widgets that wants it:
-            self.focused_widget = Some(FocusWidget::new(id));
-            self.reset_focus();
-        } else if self.focus_direction == FocusDirection::Previous
-            && self.focused_widget.is_none()
-            && !self.give_to_next
-        {
-            // nothing has focus and the user pressed Shift+Tab - give focus to the last widgets that wants it:
-            self.focused_widget = self.last_interested.map(FocusWidget::new);
-            self.reset_focus();
-        }
+        // if self.give_to_next && !self.had_focus_last_frame(id) {
+            // self.focused_widget = Some(FocusWidget::new(id));
+            // self.give_to_next = false;
+        // } else if self.focused() == Some(id) {
+            // if self.focus_direction == FocusDirection::Next {
+                // self.focused_widget = None;
+                // self.give_to_next = true;
+                // self.reset_focus();
+            // } else if self.focus_direction == FocusDirection::Previous {
+                // self.id_next_frame = self.last_interested; // frame-delay so gained_focus works
+                // self.reset_focus();
+            // }
+        // } else if self.focus_direction == FocusDirection::Next
+            // && self.focused_widget.is_none()
+            // && !self.give_to_next
+        // {
+            // // nothing has focus and the user pressed tab - give focus to the first widgets that wants it:
+            // self.focused_widget = Some(FocusWidget::new(id));
+            // self.reset_focus();
+        // } else if self.focus_direction == FocusDirection::Previous
+            // && self.focused_widget.is_none()
+            // && !self.give_to_next
+        // {
+            // // nothing has focus and the user pressed Shift+Tab - give focus to the last widgets that wants it:
+            // self.focused_widget = self.last_interested.map(FocusWidget::new);
+            // self.reset_focus();
+        // }
 
         self.last_interested = Some(id);
     }
